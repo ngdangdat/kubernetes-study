@@ -1,0 +1,26 @@
+#+title: Flux
+
+* 00. Setup
+Fedora
+#+begin_src sh
+curl -s https://fluxcd.io/install.sh | sudo bash
+#+end_src
+* 01. Setup repository
+Bootstrap Github repository. Permissions
+#+begin_quote
+- Administration -> Access: Read-only
+- Contents -> Access: Read and write
+- Metadata -> Access: Read-only
+#+end_quote
+
+#+begin_src sh
+GITHUB_PAT="<your_github_pat>"
+flux bootstrap github \
+  --token-auth \
+  --owner=ngdangdat \
+  --repository=homelab \
+  --private=true \
+  --branch=main \
+  --path=clusters/homelab \
+  --personal
+#+end_src
