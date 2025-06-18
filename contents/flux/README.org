@@ -1,18 +1,19 @@
 #+title: Flux
 
-* 00. Setup
+* Setup
+** Installation
 Fedora
 #+begin_src sh
 curl -s https://fluxcd.io/install.sh | sudo bash
 #+end_src
-* 01. Setup repository
+** Repository setup
 Bootstrap Github repository. Permissions
 #+begin_quote
 - Administration -> Access: Read-only
 - Contents -> Access: Read and write
 - Metadata -> Access: Read-only
 #+end_quote
-
+Install flux into your cluster
 #+begin_src sh
 GITHUB_PAT="<your_github_pat>"
 flux bootstrap github \
@@ -24,3 +25,19 @@ flux bootstrap github \
   --path=clusters/homelab \
   --personal
 #+end_src
+* Repository structure
+** Monorepo
+** Repo per environment
+** Repo per team
+** Repo per app
+- Flux custom resource: HelmRepository, GitRepository
+- Apply configurations in main IaC repository and application repository
+#+begin_src sh
+├── src
+└── deploy
+    ├── base
+    ├── production 
+    └── staging
+#+end_src
+* References
+- Flux repository structure: https://fluxcd.io/flux/guides/repository-structure/
