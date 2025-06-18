@@ -13,7 +13,7 @@ Bootstrap Github repository. Permissions
 - Contents -> Access: Read and write
 - Metadata -> Access: Read-only
 #+end_quote
-Install flux into your cluster
+Command
 #+begin_src sh
 GITHUB_PAT="<your_github_pat>"
 flux bootstrap github \
@@ -27,6 +27,20 @@ flux bootstrap github \
 #+end_src
 * Repository structure
 ** Monorepo
+Repository structure
+#+begin_src sh
+├── apps
+│   ├── base
+│   ├── production 
+│   └── staging
+├── infrastructure
+│   ├── base
+│   ├── production 
+│   └── staging
+└── clusters
+    ├── production
+    └── staging
+#+end_src
 ** Repo per environment
 ** Repo per team
 ** Repo per app
@@ -39,5 +53,15 @@ flux bootstrap github \
     ├── production 
     └── staging
 #+end_src
+* Create resource
+#+begin_src sh
+flux create kustomization podinfo \
+     --source=flux-system \
+     --target-namespace=demo \
+     --prune=true \
+     --interval=5m
+#+end_src
 * References
-- Flux repository structure: https://fluxcd.io/flux/guides/repository-structure/
+- On Flux repository structure:
+  - https://fluxcd.io/flux/guides/repository-structure/
+  - https://github.com/fluxcd/flux2-kustomize-helm-example/
