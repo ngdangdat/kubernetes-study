@@ -60,7 +60,45 @@ flux create kustomization podinfo \
      --target-namespace=demo \
      --prune=true \
      --interval=5m
+
+flux create kustomization podinfo \
+  --target-namespace=default \
+  --source=podinfo \
+  --path="./kustomize" \
+  --prune=true \
+  --wait=true \
+  --interval=30m \
+  --retry-interval=2m \
+  --health-check-timeout=3m \
+  --export > ./clusters/my-cluster/podinfo-kustomization.yaml
 #+end_src
+* Best practices
+** Study [[https://github.com/fluxcd/flux2-kustomize-helm-example][flux2-kustomize-helm-example]]
+Directory layout
+#+begin_src sh
+./
+├── apps
+│   ├── base
+│   ├── production
+│   └── staging
+├── clusters
+│   ├── production
+│   └── staging
+├── infrastructure
+│   ├── configs
+│   └── controllers
+├── LICENSE
+├── README.md
+└── scripts
+    └── validate.sh
+#+end_src
+
+~apps~
+- Contains manifest files of multiple applications
+- ~app-a~
+  - ~base/app-a~: base manifest of ~app-a~
+  - ~production/app-a~: 
+
 * References
 - On Flux repository structure:
   - https://fluxcd.io/flux/guides/repository-structure/
